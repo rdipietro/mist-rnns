@@ -2,9 +2,9 @@
 
 This is the accompanying code for
 
-`DiPietro, Robert, Nassir Navab, and Gregory D. Hager. "Revisiting NARX
+DiPietro, Robert, Nassir Navab, and Gregory D. Hager. "Revisiting NARX
 Recurrent Neural Networks for Long-Term Dependencies." arXiv preprint
-arXiv:1702.07805 (2017).` https://arxiv.org/abs/1702.07805
+arXiv:1702.07805 (2017). https://arxiv.org/abs/1702.07805
 
 We ask that you cite the paper if you find the code useful in your research.
 
