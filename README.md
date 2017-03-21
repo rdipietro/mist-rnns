@@ -8,7 +8,7 @@ arXiv:1702.07805 (2017). https://arxiv.org/abs/1702.07805
 
 We ask that you cite the paper if you find the code useful in your research.
 
-### High-Level Overview of the Paper
+## High-Level Overview of the Paper
 
 - RNNs struggle with learning long-term dependencies because of the vanishing
 gradient problem, which can't be resolved in the absolute (see Bengio et al.,
@@ -26,9 +26,9 @@ RNNs).
 RNNs significantly outperform LSTM and GRUs in 2 cases and match performance in
 the other 2 cases.
 
-### Overview of this Repository
+## Overview of this Repository
 
-#### Models
+### Models
 
 See `layers.py` and `models.py`. Here you'll find
 from-scratch implementations of simple RNNs, LSTM, GRUs, and MIST RNNs.
@@ -55,7 +55,7 @@ That said, we do hope to provide an `RNNCell` in the future; it should be able
 to work with TensorFlow's `raw_rnn`, which right now is in an early testing
 phase with an API that's not yet stable.
 
-#### Data: Downloading, Generating, Preprocessing
+### Data: Downloading, Generating, Preprocessing
 
 See `copyproblem.py`, `additionproblem.py`, `timit.py`, `timitphonemerec.py`,
 and `mnist.py`.
@@ -98,7 +98,7 @@ to form the standard train, val, test sets (see paper or code for details).
 coefficients etc. Finally `timitphonemerec` provides the same `load_split`
 functionality as elsewhere.
 
-#### Training
+### Training
 
 See `copyproblem_train.py`, `additionproblem_train.py`,
 `timitphonemerec_train.py`, and `mnist_train.py`. Each is an executable for
@@ -139,14 +139,14 @@ Important note: Do not run training with the default learning rate and expect to
 see reasonable results. All models are sensitive to learning rate; see the paper
 for good choices for various task, method pairs.
 
-#### Batch Runs
+### Batch Runs
 
 See `batch_runs/`, which includes `copyproblem_template.sh`,
 `additionproblem_template.sh`, `timitphonemerec_template.sh`, and
 `mnist_template.sh`. By default, each run uses a learning rate sampled randomly
 in log space over `10^-4` and `10^1`.
 
-#### Testing
+### Testing
 
 See `timitphonemerec_test.py` and `mnist_test.py`.
 
@@ -166,13 +166,13 @@ Here, `results_dir` is *required*, and must must be one of the directories
 created during training, which contains TensorBoard summaries, a saved model,
 etc.
 
-#### Utils
+### Utils
 
 See `utils.py`. This contains various helper functions to traverse examples
 epoch by epoch, to pad sequences, to form batches for full BPTT or truncated
 BPTT, etc.
 
-#### Additional Notes
+### Additional Notes
 
 You may see slow performance if you use CPUs rather than GPUs. In particular,
 TensorFlow for some reason leads to ~40% CPU utilization, and a trace shows that
@@ -182,7 +182,7 @@ please let us know.
 
 We used Nvidia K80s for all experiments.
 
-#### Dependencies
+### Dependencies
 
 Python 3 is required.
 
