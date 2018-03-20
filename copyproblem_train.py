@@ -150,7 +150,8 @@ def main():
 
     if step % NUM_STEPS_PER_VAL_SUMMARY == 0:
 
-      val_batches = utils.full_bptt_batch_generator(val_inputs, val_targets, VAL_BATCH_SIZE, num_epochs=1,
+      val_batches = utils.full_bptt_batch_generator(val_inputs, val_targets,
+                                                    VAL_BATCH_SIZE, num_epochs=1,
                                                     shuffle=False)
       error_rates = []
       for batch_inputs, batch_targets in val_batches:

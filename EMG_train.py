@@ -137,8 +137,8 @@ def main():
   for step in range(NUM_OPT_STEPS):
 
     batch_inputs, batch_targets = next(train_batches)
-    batch_inputs = utils.one_hot(np.squeeze(batch_inputs, 2), INPUT_SIZE)
-    batch_targets = utils.one_hot(np.squeeze(batch_targets, 2), TARGET_SIZE)
+#    batch_inputs = utils.one_hot(np.squeeze(batch_inputs, 2), INPUT_SIZE)
+#    batch_targets = utils.one_hot(np.squeeze(batch_targets, 2), TARGET_SIZE)
 
     sess.run(optimize_op,
              feed_dict={model.inputs: batch_inputs,
