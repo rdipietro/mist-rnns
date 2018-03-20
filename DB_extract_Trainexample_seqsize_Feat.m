@@ -1,14 +1,14 @@
 % NARX를 이용해 regression 하는 함수
 % NARX는 입력 뿐만 아니라 출력은 feedback 하여, 미래의 data를 예측 하는 함수임
 clc; close all; clear ;
-
+cd('E:\OneDrive_Hanyang\연구\EMG_maker_regression\코드')
 % 실험 정보
 N_mark = 28;
 N_sub = 21;
 Idx_sub = 1 : N_sub;
 Idx_trl = 1 : 15;
 Idx_sub4train = 1 : 19;
-% Idx_sub4train(10) = [];
+Idx_sub_4testing = 1; %  subejct dependent로 할경우, train할 피험자 인덱스
 Idx_trl4train = 1 : 5;
 Label_mark = {'central down lip';'central nose';'central upper lip';'head 1';'head 2';'head 3';'head 4';'jaw';'left central lip';'left cheek';'left dimple';'left down eye';'left down lip';'left eyebrow inside';'left eyebrow outside';'left nose';'left upper eye';'left upper lip';'right central lip';'right cheek';'right dimple';'right down eye';'right down lip';'right eyebrow inside';'right eyebrow outside';'right nose';'right upper eye';'right upper lip'};
 delay = 1;
@@ -24,7 +24,7 @@ Idx_use_mark_type = 1:3;
 Idx_use_emg_feat = 1:4;
 
 % validation 조정
-val_subject_indepe = 1;
+val_subject_indepe = 0;
 use_saved_network = 0;
 % seq size
 seq_size = 20;
@@ -77,7 +77,8 @@ for i_mark = 12
     end
     train_inputs = cat(1,train_inputs{:});
     train_inputs = cellfun(@(x) x',train_inputs,'UniformOutput', false);
-    DB.train_inputs = permute(cat(3,train_inputs{:}),[3 2 1]);
+    train_inputs = permute(cat(3,train_inputs{:}),[3 2 1]);
+    DB{1} = train_inputs;
     
     train_targets = Ttr_;
     for i= 1:numel(train_targets)
@@ -85,7 +86,8 @@ for i_mark = 12
     end
     train_targets = cat(1,train_targets{:});
     train_targets = cellfun(@(x) x',train_targets,'UniformOutput', false);
-    DB.train_targets = permute(cat(3,train_targets{:}),[3 2 1]);
+    train_targets = permute(cat(3,train_targets{:}),[3 2 1]);
+    DB{2} = train_targets;
     
     %% input and targets of Test
     test_inputs = Xte_;
@@ -94,7 +96,8 @@ for i_mark = 12
     end
     test_inputs = cat(1,test_inputs{:});
     test_inputs = cellfun(@(x) x',test_inputs,'UniformOutput', false);
-    DB.test_inputs = permute(cat(3,test_inputs{:}),[3 2 1]);
+    test_inputs = permute(cat(3,test_inputs{:}),[3 2 1]);
+    DB{3} = test_inputs;
     
     test_targets = Tte_;
     for i= 1:numel(test_targets)
@@ -102,7 +105,8 @@ for i_mark = 12
     end
     test_targets = cat(1,test_targets{:});
     test_targets = cellfun(@(x) x',test_targets,'UniformOutput', false);
-    DB.test_targets = permute(cat(3,test_targets{:}),[3 2 1]);
+    test_targets = permute(cat(3,test_targets{:}),[3 2 1]);
+    DB{4} = test_targets;
     save_path = 'C:\Users\CHA\Data\MarkerRegression';
     save(fullfile(save_path,'EMG_Marker_DB.mat'),'DB')
     

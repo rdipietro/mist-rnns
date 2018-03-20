@@ -7,12 +7,7 @@ from scipy import io
 #INPUT_FILENAME_PATTERN = 'delay_%d_num_possible_symbols_%d_%s_inputs.npy'
 #TARGET_FILENAME_PATTERN = 'delay_%d_num_possible_symbols_%d_%s_targets.npy'
 #DEFAULT_DATA_DIR = os.path.expanduser(os.path.join('~', 'Data', 'CopyProblem'))
-DEFAULT_DATA_DIR = os.path.abspath('EMG_DB')
-Idx_sub_train = np.arange(0,15)
-Idx_sub_test = np.arange(16,21+1)
-
-Idx_trl_train = np.arange(0,5)
-Idx_trl_test = np.arange(6,15)
+DEFAULT_DATA_DIR = 'C:\\Users\\CHA\\Data\\MarkerRegression'
 
 def load(data_dir):
   """ Load EMG dataset
@@ -30,21 +25,11 @@ def load(data_dir):
   #mat file 받아오기
   ret = []
   # EMG DB
-  mat_EMG = io.loadmat(os.path.join(data_dir,'emg_feat_set_10Hz','EMG_feat_normalized.mat'))
-  EMG_feat = mat_EMG['feat']
-  #EMG_feat = EMG_feat[:,:3] # RMS특징만 사용
-  ret.append(np.concatenate(EMG_feat[1,Idx_trl_train])) # train_inputs 
-  ret.append(np.concatenate(EMG_feat[1,Idx_trl_test])) # test_inputs
-
-#  EMG_feat = np.concatenate(np.concatenate(mat_EMG['feat']))
-  
-  mat_Marker = io.loadmat(os.path.join(data_dir,'DB_markset_10Hz_basecorr_norm_0-1','mark_12.mat'))
-  Marker = mat_Marker['marker_set']
- 
-  ret.append(np.concatenate(Marker[1,Idx_trl_train])) # train_targets
-  ret.append(np.concatenate(Marker[1,Idx_trl_test])) # test_targets 
-
-
+  mat = io.loadmat(os.path.join(data_dir,'EMG_Marker_DB.mat'))
+  DB_file = mat['DB']
+    
+  for i in range(4):
+      ret.append(DB_file[0][i])
 
 #  Marker = np.concatenate(np.concatenate(mat_Marker['marker_set']))
   
@@ -76,11 +61,8 @@ def load_split(data_dir=DEFAULT_DATA_DIR):
   """
   outs = load(data_dir)
   
-  train_inputs, test_inputs, train_targets, test_targets = outs
-  train_inputs = train_inputs[:,:3]
-  test_inputs = test_inputs[:,:3]
-  train_targets = train_targets[:,:2]
-  test_targets = test_targets[:,:2]
+  train_inputs, train_targets, test_inputs, test_targets = outs
+
 
   return train_inputs, train_targets, test_inputs, test_targets
 
